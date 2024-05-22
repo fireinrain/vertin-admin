@@ -1,10 +1,10 @@
 <p align="center">
-  <a href="https://github.com/mizhexiaoxiao/vue-fastapi-admin">
-    <img alt="Vue FastAPI Admin Logo" width="200" src="https://github.com/mizhexiaoxiao/vue-fastapi-admin/blob/main/deploy/sample-picture/logo.svg">
+  <a href="https://github.com/fireinrain/vertin-admin">
+    <img alt="Vue FastAPI Admin Logo" width="200" src="https://github.com/fireinrain/vertin-admin/blob/main/deploy/sample-picture/logo.svg">
   </a>
 </p>
 
-<h1 align="center">vue-fastapi-admin</h1>
+<h1 align="center">vertin-admin</h1>
 
 [English](./README-en.md) | 简体中文
 
@@ -24,32 +24,32 @@
 
 ### 登录页
 
-![image](https://github.com/mizhexiaoxiao/vue-fastapi-admin/blob/main/deploy/sample-picture/login.jpg)
+![image](https://github.com/fireinrain/vertin-admin/blob/main/deploy/sample-picture/login.jpg)
 ### 工作台
 
-![image](https://github.com/mizhexiaoxiao/vue-fastapi-admin/blob/main/deploy/sample-picture/workbench.jpg)
+![image](https://github.com/fireinrain/vertin-admin/blob/main/deploy/sample-picture/workbench.jpg)
 
 ### 用户管理
 
-![image](https://github.com/mizhexiaoxiao/vue-fastapi-admin/blob/main/deploy/sample-picture/user.jpg)
+![image](https://github.com/fireinrain/vertin-admin/blob/main/deploy/sample-picture/user.jpg)
 ### 角色管理
 
-![image](https://github.com/mizhexiaoxiao/vue-fastapi-admin/blob/main/deploy/sample-picture/role.jpg)
+![image](https://github.com/fireinrain/vertin-admin/blob/main/deploy/sample-picture/role.jpg)
 
 ### 菜单管理
 
-![image](https://github.com/mizhexiaoxiao/vue-fastapi-admin/blob/main/deploy/sample-picture/menu.jpg)
+![image](https://github.com/fireinrain/vertin-admin/blob/main/deploy/sample-picture/menu.jpg)
 
 ### API管理
 
-![image](https://github.com/mizhexiaoxiao/vue-fastapi-admin/blob/main/deploy/sample-picture/api.jpg)
+![image](https://github.com/fireinrain/vertin-admin/blob/main/deploy/sample-picture/api.jpg)
 
 ### 快速开始
 #### 方法一：dockerhub拉取镜像
 
 ```sh
-docker pull mizhexiaoxiao/vue-fastapi-admin:latest 
-docker run -d --restart=always --name=vue-fastapi-admin -p 9999:80 mizhexiaoxiao/vue-fastapi-admin
+docker pull fireinrain/vertin-admin:latest 
+docker run -d --restart=always --name=vertin-admin -p 9999:80 fireinrain/vertin-admin
 ```
 
 #### 方法二：dockerfile构建镜像
@@ -63,15 +63,15 @@ systemctl start docker
 ##### 构建镜像
 
 ```sh
-git clone https://github.com/mizhexiaoxiao/vue-fastapi-admin.git
-cd vue-fastapi-admin
-docker build --no-cache . -t vue-fastapi-admin
+git clone https://github.com/fireinrain/vertin-admin.git
+cd vertin-admin
+docker build --no-cache . -t vertin-admin
 ```
 
 ##### 启动容器
 
 ```sh
-docker run -d --restart=always --name=vue-fastapi-admin -p 9999:80 vue-fastapi-admin
+docker run -d --restart=always --name=vertin-admin -p 9999:80 vertin-admin
 ```
 
 ##### 访问
@@ -190,8 +190,8 @@ pnpm dev
 
 你可以在群里提出任何疑问，我会尽快回复答疑。
 
-<img alt="Vue FastAPI Admin Logo" width="400" src="https://github.com/mizhexiaoxiao/vue-fastapi-admin/blob/main/deploy/sample-picture/group.jpg">
+<img alt="Vue FastAPI Admin Logo" width="400" src="https://github.com/fireinrain/vertin-admin/blob/main/deploy/sample-picture/group.jpg">
 
 ### Visitors Count
 
-<img align="left" src = "https://profile-counter.glitch.me/vue-fastapi-admin/count.svg" alt="Loading">
+<img align="left" src = "https://profile-counter.glitch.me/vertin-admin/count.svg" alt="Loading">

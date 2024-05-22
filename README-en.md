@@ -1,14 +1,14 @@
 <p align="center">
-  <a href="https://github.com/mizhexiaoxiao/vue-fastapi-admin">
-    <img alt="Vue FastAPI Admin Logo" width="200" src="https://github.com/mizhexiaoxiao/vue-fastapi-admin/blob/main/deploy/sample-picture/logo.svg">
+  <a href="https://github.com/fireinrain/vertin-admin">
+    <img alt="Vue FastAPI Admin Logo" width="200" src="https://github.com/fireinrain/vertin-admin/blob/main/deploy/sample-picture/logo.svg">
   </a>
 </p>
 
-<h1 align="center">vue-fastapi-admin</h1>
+<h1 align="center">vertin-admin</h1>
 
 English | [简体中文](./README.md)
 
-vue-fastapi-admin is a modern front-end and back-end separation development platform that combines FastAPI, Vue3, and Naive UI. It incorporates RBAC (Role-Based Access Control) management, dynamic routing, and JWT (JSON Web Token) authentication, making it ideal for rapid development of small to medium-sized applications and also serves as a valuable learning resource.
+vertin-admin is a modern front-end and back-end separation development platform that combines FastAPI, Vue3, and Naive UI. It incorporates RBAC (Role-Based Access Control) management, dynamic routing, and JWT (JSON Web Token) authentication, making it ideal for rapid development of small to medium-sized applications and also serves as a valuable learning resource.
 
 ### Features
 - **Popular Tech Stack**: The backend is developed with the high-performance asynchronous framework FastAPI using Python 3.11, while the front-end is powered by cutting-edge technologies such as Vue3 and Vite, complemented by the efficient package manager, pnpm.
@@ -25,22 +25,22 @@ vue-fastapi-admin is a modern front-end and back-end separation development plat
 ### Screenshots
 
 #### Login Page
-![Login Page](https://github.com/mizhexiaoxiao/vue-fastapi-admin/blob/main/deploy/sample-picture/login.jpg)
+![Login Page](https://github.com/fireinrain/vertin-admin/blob/main/deploy/sample-picture/login.jpg)
 
 #### Workbench
-![Workbench](https://github.com/mizhexiaoxiao/vue-fastapi-admin/blob/main/deploy/sample-picture/workbench.jpg)
+![Workbench](https://github.com/fireinrain/vertin-admin/blob/main/deploy/sample-picture/workbench.jpg)
 
 #### User Management
-![User Management](https://github.com/mizhexiaoxiao/vue-fastapi-admin/blob/main/deploy/sample-picture/user.jpg)
+![User Management](https://github.com/fireinrain/vertin-admin/blob/main/deploy/sample-picture/user.jpg)
 
 #### Role Management
-![Role Management](https://github.com/mizhexiaoxiao/vue-fastapi-admin/blob/main/deploy/sample-picture/role.jpg)
+![Role Management](https://github.com/fireinrain/vertin-admin/blob/main/deploy/sample-picture/role.jpg)
 
 #### Menu Management
-![Menu Management](https://github.com/mizhexiaoxiao/vue-fastapi-admin/blob/main/deploy/sample-picture/menu.jpg)
+![Menu Management](https://github.com/fireinrain/vertin-admin/blob/main/deploy/sample-picture/menu.jpg)
 
 #### API Management
-![API Management](https://github.com/mizhexiaoxiao/vue-fastapi-admin/blob/main/deploy/sample-picture/api.jpg)
+![API Management](https://github.com/fireinrain/vertin-admin/blob/main/deploy/sample-picture/api.jpg)
 
 ### Quick Start
 Please follow the instructions below for installation and configuration:
@@ -48,8 +48,8 @@ Please follow the instructions below for installation and configuration:
 #### Method 1：dockerhub pull image
 
 ```sh
-docker pull mizhexiaoxiao/vue-fastapi-admin:latest 
-docker run -d --restart=always --name=vue-fastapi-admin -p 9999:80 mizhexiaoxiao/vue-fastapi-admin
+docker pull fireinrain/vertin-admin:latest 
+docker run -d --restart=always --name=vertin-admin -p 9999:80 fireinrain/vertin-admin
 ```
 
 #### Method 2: Build Image Using Dockerfile
@@ -63,15 +63,15 @@ systemctl start docker
 ##### Build the Image
 
 ```sh
-git clone https://github.com/mizhexiaoxiao/vue-fastapi-admin.git
-cd vue-fastapi-admin
-docker build --no-cache . -t vue-fastapi-admin
+git clone https://github.com/fireinrain/vertin-admin.git
+cd vertin-admin
+docker build --no-cache . -t vertin-admin
 ```
 
 ##### Start the Container
 
 ```sh
-docker run -d --restart=always --name=vue-fastapi-admin -p 9999:80 vue-fastapi-admin
+docker run -d --restart=always --name=vertin-admin -p 9999:80 vertin-admin
 ```
 
 ##### Access the Service
@@ -187,4 +187,4 @@ pnpm dev
 
 ### Visitors Count
 
-<img align="left" src = "https://profile-counter.glitch.me/vue-fastapi-admin/count.svg" alt="Loading">
+<img align="left" src = "https://profile-counter.glitch.me/vertin-admin/count.svg" alt="Loading">

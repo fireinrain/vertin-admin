@@ -1,15 +1,15 @@
 FROM node:18.8.0-alpine3.16 as web
 
-WORKDIR /opt/vue-fastapi-admin
+WORKDIR /opt/vertin-admin
 COPY /web ./web
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories \
-    && cd /opt/vue-fastapi-admin/web && npm i -g pnpm --registry=https://registry.npmmirror.com \
+    && cd /opt/vertin-admin/web && npm i -g pnpm --registry=https://registry.npmmirror.com \
     && pnpm i && pnpm run build
 
 
 FROM python:3.11-slim
 
-WORKDIR /opt/vue-fastapi-admin
+WORKDIR /opt/vertin-admin
 ADD . .
 COPY /deploy/entrypoint.sh .
 
@@ -24,7 +24,7 @@ RUN pip install poetry -i https://pypi.tuna.tsinghua.edu.cn/simple\
     && poetry config virtualenvs.create false \
     && poetry install
 
-COPY --from=web /opt/vue-fastapi-admin/web/dist /opt/vue-fastapi-admin/web/dist
+COPY --from=web /opt/vertin-admin/web/dist /opt/vertin-admin/web/dist
 ADD /deploy/web.conf /etc/nginx/sites-available/web.conf
 RUN rm -f /etc/nginx/sites-enabled/default \ 
     && ln -s /etc/nginx/sites-available/web.conf /etc/nginx/sites-enabled/ 

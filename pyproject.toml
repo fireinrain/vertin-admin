@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "vue-fastapi-admin"
+name = "vertin-admin"
 version = "0.1.0"
 description = "Vue Fastapi admin"
-authors = ["mizhexiaoxiao <mizhexiaoxiao@gmail.com>"]
+authors = ["fireinrain <fireinrain@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
