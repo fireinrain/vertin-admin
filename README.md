@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/fireinrain/vertin-admin">
-    <img alt="Vue FastAPI Admin Logo" width="200" src="https://github.com/fireinrain/vertin-admin/blob/main/deploy/sample-picture/logo.svg">
+    <img alt="Vue FastAPI Admin Logo" width="200" src="https://github.com/fireinrain/vertin-admin/blob/master/deploy/sample-picture/logo.svg">
   </a>
 </p>
 
@@ -24,25 +24,25 @@
 
 ### 登录页
 
-![image](https://github.com/fireinrain/vertin-admin/blob/main/deploy/sample-picture/login.jpg)
+![image](https://github.com/fireinrain/vertin-admin/blob/master/deploy/sample-picture/login.jpg)
 ### 工作台
 
-![image](https://github.com/fireinrain/vertin-admin/blob/main/deploy/sample-picture/workbench.jpg)
+![image](https://github.com/fireinrain/vertin-admin/blob/master/deploy/sample-picture/workbench.jpg)
 
 ### 用户管理
 
-![image](https://github.com/fireinrain/vertin-admin/blob/main/deploy/sample-picture/user.jpg)
+![image](https://github.com/fireinrain/vertin-admin/blob/master/deploy/sample-picture/user.jpg)
 ### 角色管理
 
-![image](https://github.com/fireinrain/vertin-admin/blob/main/deploy/sample-picture/role.jpg)
+![image](https://github.com/fireinrain/vertin-admin/blob/master/deploy/sample-picture/role.jpg)
 
 ### 菜单管理
 
-![image](https://github.com/fireinrain/vertin-admin/blob/main/deploy/sample-picture/menu.jpg)
+![image](https://github.com/fireinrain/vertin-admin/blob/master/deploy/sample-picture/menu.jpg)
 
 ### API管理
 
-![image](https://github.com/fireinrain/vertin-admin/blob/main/deploy/sample-picture/api.jpg)
+![image](https://github.com/fireinrain/vertin-admin/blob/master/deploy/sample-picture/api.jpg)
 
 ### 快速开始
 #### 方法一：dockerhub拉取镜像
@@ -190,7 +190,7 @@ pnpm dev
 
 你可以在群里提出任何疑问，我会尽快回复答疑。
 
-<img alt="Vue FastAPI Admin Logo" width="400" src="https://github.com/fireinrain/vertin-admin/blob/main/deploy/sample-picture/group.jpg">
+<img alt="Vue FastAPI Admin Logo" width="400" src="https://github.com/fireinrain/vertin-admin/blob/master/deploy/sample-picture/group.jpg">
 
 ### Visitors Count
 
