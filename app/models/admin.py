@@ -79,3 +79,14 @@ class DeptClosure(BaseModel, TimestampMixin):
     ancestor = fields.IntField(description="父代")
     descendant = fields.IntField(description="子代")
     level = fields.IntField(default=0, description="深度")
+
+
+class Monitor(BaseModel, TimestampMixin):
+    sn = fields.CharField(max_length=100, description="SN编号")
+    content = fields.CharField(max_length=1000, description="监控数据")
+    report_time = fields.DatetimeField(description="上报时间")
+    start_time = fields.DatetimeField(description="开始时间")
+    end_time = fields.DatetimeField(description="结束时间")
+
+    class Meta:
+        table = "monitor"

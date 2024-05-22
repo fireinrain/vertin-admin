@@ -8,6 +8,7 @@ from .menus import menus_router
 from .roles import roles_router
 from .users import users_router
 from .depts import depts_router
+from .monitor import monitor_router
 
 v1_router = APIRouter()
 
@@ -17,3 +18,5 @@ v1_router.include_router(roles_router, prefix="/role", dependencies=[DependPermi
 v1_router.include_router(menus_router, prefix="/menu", dependencies=[DependPermisson])
 v1_router.include_router(apis_router, prefix="/api", dependencies=[DependPermisson])
 v1_router.include_router(depts_router, prefix="/dept", dependencies=[DependPermisson])
+v1_router.include_router(monitor_router, prefix="/monitor", dependencies=[DependPermisson])
+

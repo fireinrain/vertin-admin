@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "vertin-admin"
 version = "0.1.0"
-description = "Vue Fastapi admin"
+description = "Vertin Admin"
 authors = ["fireinrain <fireinrain@gmail.com>"]
 readme = "README.md"
 

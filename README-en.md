@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/fireinrain/vertin-admin">
-    <img alt="Vue FastAPI Admin Logo" width="200" src="https://github.com/fireinrain/vertin-admin/blob/main/deploy/sample-picture/logo.svg">
+    <img alt="Vertin Admin Logo" width="200" src="https://github.com/fireinrain/vertin-admin/blob/main/deploy/sample-picture/logo.svg">
   </a>
 </p>
 
