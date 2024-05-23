@@ -1,11 +1,11 @@
 from app.core.crud import CRUDBase
-from app.models.admin import Api
-from app.schemas.apis import ApiCreate, ApiUpdate
+from app.models.admin import Monitor
+from app.schemas.monitor import MonitorCreate, MonitorUpdate
 
 
-class MonitorController(CRUDBase[Api, ApiCreate, ApiUpdate]):
+class MonitorController(CRUDBase[Monitor, MonitorCreate, MonitorUpdate]):
     def __init__(self):
-        super().__init__(model=Api)
+        super().__init__(model=Monitor)
 
 
 monitor_controller = MonitorController()
