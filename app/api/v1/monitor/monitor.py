@@ -25,8 +25,8 @@ async def list_api(
         q &= Q(start_time__gte=start_time)
     if end_time:
         q &= Q(end_time__lte=end_time)
-    total, api_objs = await monitor_controller.list(page=page, page_size=page_size, search=q, order=["report_time", "id"])
-    data = [await obj.to_dict() for obj in api_objs]
+    total, moni_objs = await monitor_controller.list(page=page, page_size=page_size, search=q, order=["report_time", "id"])
+    data = [await obj.to_dict() for obj in moni_objs]
     return SuccessExtra(data=data, total=total, page=page, page_size=page_size)
 
 
@@ -34,8 +34,8 @@ async def list_api(
 async def get_api(
     monitor_id: int = Query(..., description="Monitor Record Id"),
 ):
-    api_obj = await monitor_controller.get(id=monitor_id)
-    data = await api_obj.to_dict()
+    moni_obj = await monitor_controller.get(id=monitor_id)
+    data = await moni_obj.to_dict()
     return Success(data=data)
 
 
