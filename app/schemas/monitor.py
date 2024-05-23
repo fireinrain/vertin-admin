@@ -2,9 +2,8 @@ from datetime import datetime
 
 from pydantic import BaseModel, Field
 
-from app.models.enums import MethodType
 
-
+# 监控历史数据
 class BaseMonitor(BaseModel):
     sn: str = Field(..., description="SN编码", example="JX000001")
     content: str = Field("", description="监控数据", example="00100020001")
@@ -18,6 +17,25 @@ class MonitorCreate(BaseMonitor):
 
 
 class MonitorUpdate(BaseMonitor):
+    id: int
+
+    def update_dict(self):
+        return self.model_dump(exclude_unset=True, exclude={"id"})
+
+
+# 监控采集设置
+class BaseMonitorSet(BaseModel):
+    sn: str = Field(..., description="SN编码", example="JX000001")
+    api_url: str = Field("", description="监控数据地址", example="https://example.com")
+    fetch_interval: int = Field(30, description="采集间隔")
+    enable: bool = Field(False, description="是否开启")
+
+
+class MonitorSetCreate(BaseMonitorSet):
+    ...
+
+
+class MonitorSetUpdate(BaseMonitorSet):
     id: int
 
     def update_dict(self):

@@ -2,6 +2,7 @@ from starlette.background import BackgroundTasks
 
 from .ctx import CTX_BG_TASKS
 
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 class BgTasks:
     """后台任务统一管理"""
@@ -29,3 +30,6 @@ class BgTasks:
         bg_tasks = await cls.get_bg_tasks_obj()
         if bg_tasks.tasks:
             await bg_tasks()
+
+
+IntervalTaskScheduler = AsyncIOScheduler()

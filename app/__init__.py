@@ -1,13 +1,14 @@
 from fastapi import FastAPI
 
 from app.core.exceptions import SettingNotFound
+from app.core.bgtask import IntervalTaskScheduler
 from app.core.init_app import (
     init_menus,
     init_superuser,
     make_middlewares,
     register_db,
     register_exceptions,
-    register_routers,
+    register_routers, init_fetch_monitor_data,
 )
 
 try:
@@ -37,3 +38,4 @@ app = create_app()
 async def startup_event():
     await init_superuser()
     await init_menus()
+    await init_fetch_monitor_data()
