@@ -36,4 +36,9 @@ export default {
   createDept: (data = {}) => request.post('/dept/create', data),
   updateDept: (data = {}) => request.post('/dept/update', data),
   deleteDept: (params = {}) => request.delete('/dept/delete', { params }),
+  // monitor
+  getMonitors: (params = {}) => request.get('/monitor/list', { params }),
+  createMonitor: (data = {}) => request.post('/monitor/create', data),
+  updateMonitor: (data = {}) => request.post('/monitor/update', data),
+  deleteMonitor: (params = {}) => request.delete('/monitor/delete', { params }),
 }
