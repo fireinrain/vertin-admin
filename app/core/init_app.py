@@ -1,4 +1,4 @@
-import asyncio
+from datetime import datetime
 
 import httpx
 from fastapi import FastAPI
@@ -8,7 +8,7 @@ from tortoise.contrib.fastapi import register_tortoise
 from tortoise.expressions import Q
 from app.api import api_router
 from app.controllers.user import UserCreate, user_controller
-from app.controllers.monitor import MonitorSetCreate, monitorset_controller
+from app.controllers.monitor import MonitorSetCreate, monitorset_controller, monitor_controller
 from apscheduler.triggers.interval import IntervalTrigger
 
 from app.core.exceptions import (
@@ -29,7 +29,9 @@ from app.settings.config import settings
 from .bgtask import IntervalTaskScheduler
 
 from .middlewares import BackGroundTaskMiddleware
+from ..api.v1.monitor.monitor import fetch_monitor_data
 from ..log import logger
+from ..schemas.monitor import MonitorCreate
 
 
 def make_middlewares():
@@ -110,30 +112,73 @@ async def init_fetch_monitor_data():
 async def run_monitor_task():
     logger.info(f"Interval Background Task scheduling")
 
-    q = Q(enable=True)
+    q = Q(enable="true")
     monitor_sets = await monitorset_controller.model.filter(q).all()
     for m_set in monitor_sets:
-        # job = IntervalTaskScheduler.get_job(str(m_set.id))
-        # if job:
-        #     # Remove the job from the scheduler
-        #     logger.info(f"Task ID: {m_set.id} is running, and do cancel for next check.")
-        #     IntervalTaskScheduler.remove_job(m_set.id)
-        #     continue
         logger.info(f"定时任务: {m_set}")
-        IntervalTaskScheduler.add_job(fetch_monitor_data, IntervalTrigger(seconds=30), id=str(m_set.id), args=[m_set])
+        interval_int = int(m_set.fetch_interval)
+        IntervalTaskScheduler.add_job(fetch_monitor_data, IntervalTrigger(seconds=interval_int), id=str(m_set.id),
+                                      args=[m_set])
     IntervalTaskScheduler.start()
 
 
 async def fetch_monitor_data(m_set: MonitorSet):
-    url = f"{m_set.api_url}?sn={m_set.sn}"  # Corrected the query parameter syntax
+    url = f"{m_set.api_url}?sn={m_set.sn}"
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) '
+                      'Chrome/124.0.0.0 Safari/537.36'
+    }
+    # Corrected the query parameter syntax
     async with httpx.AsyncClient() as client:
-        response = await client.get(url)
+        response = await client.get(url, headers=headers)
         if response.status_code != 200:
             text = response.text
             logger.error(f"Error fetching monitor data: {response.status_code}, {text}")
             return None
-        print(response.json())
-        return response.json()
+        logger.info(f"Job excute at: {datetime.now()}, url:{url}, response: {response.json()['data']}")
+
+        data = response.json()['data']
+        if isinstance(data, list):
+            for d in data:
+                sn = d.get('sn')
+                content = d.get('content')
+                report_time = d.get('reportTime')
+                start_time = d.get('startTime')
+                end_time = d.get('endTime')
+                monitor_his = await monitor_controller.model.filter(sn=sn, content=content,
+                                                                    report_time=report_time, start_time=start_time,
+                                                                    end_time=end_time).exists()
+
+                if not monitor_his:
+                    logger.info(f"发现新监控记录,保存更新中...{d}")
+
+                    await monitor_controller.create(MonitorCreate(
+                        sn=d['sn'],
+                        content=d['content'],
+                        report_time=d['reportTime'],
+                        start_time=d['startTime'],
+                        end_time=d['endTime']
+                    ))
+        elif isinstance(data, dict):
+            sn = data.get('sn')
+            content = data.get('content')
+            report_time = data.get('reportTime')
+            start_time = data.get('startTime')
+            end_time = data.get('endTime')
+            monitor_his = await monitor_controller.model.filter(sn=sn, content=content,
+                                                                report_time=report_time, start_time=start_time,
+                                                                end_time=end_time).exists()
+
+            if not monitor_his:
+                logger.info(f"发现新监控记录,保存更新中...{data}")
+
+                await monitor_controller.create(MonitorCreate(
+                    sn=data['sn'],
+                    content=data['content'],
+                    report_time=data['reportTime'],
+                    start_time=data['startTime'],
+                    end_time=data['endTime']
+                ))
 
 
 async def init_menus():

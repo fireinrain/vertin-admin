@@ -84,9 +84,9 @@ class DeptClosure(BaseModel, TimestampMixin):
 class Monitor(BaseModel, TimestampMixin):
     sn = fields.CharField(max_length=100, description="SN编号")
     content = fields.CharField(max_length=1000, description="监控数据")
-    report_time = fields.DatetimeField(description="上报时间")
-    start_time = fields.DatetimeField(description="开始时间")
-    end_time = fields.DatetimeField(description="结束时间")
+    report_time = fields.IntField(description="上报时间")
+    start_time = fields.IntField(description="开始时间", null=True)
+    end_time = fields.IntField(description="结束时间", null=True)
 
     class Meta:
         table = "monitor"
@@ -96,13 +96,10 @@ class MonitorSet(BaseModel, TimestampMixin):
     sn = fields.CharField(max_length=100, description="SN编号")
     api_url = fields.CharField(max_length=1000, description="监控数据api")
     fetch_interval = fields.IntField(description="采集间隔")
-    enable = fields.CharField(max_length=10,description="是否开启")
+    enable = fields.CharField(max_length=10, description="是否开启")
 
     class Meta:
         table = "monitor_set"
 
     def __str__(self) -> str:
         return f"{self.sn}:{self.api_url}:{self.fetch_interval}:{self.enable}"
-
-
-

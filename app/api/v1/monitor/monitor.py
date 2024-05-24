@@ -1,9 +1,14 @@
 from datetime import datetime
 
+import httpx
+from apscheduler.triggers.interval import IntervalTrigger
 from fastapi import APIRouter, Query
 from tortoise.expressions import Q
 
-from app.controllers.monitor import monitor_controller,monitorset_controller
+from app.controllers.monitor import monitor_controller, monitorset_controller
+from app.core.bgtask import IntervalTaskScheduler
+from app.log import logger
+from app.models import MonitorSet
 from app.schemas import Success, SuccessExtra
 from app.schemas.monitor import *
 
@@ -44,6 +49,12 @@ async def get_monitor(
 async def create_monitor(
         monitor_in: MonitorCreate,
 ):
+    monitor_in.report_time = monitor_in.report_time * 1000
+    if monitor_in.start_time is not None:
+        monitor_in.start_time = monitor_in.start_time * 1000
+    if monitor_in.end_time is not None:
+        monitor_in.end_time = monitor_in.end_time * 1000
+
     await monitor_controller.create(obj_in=monitor_in)
     return Success(msg="Created Successfully")
 
@@ -52,6 +63,11 @@ async def create_monitor(
 async def update_monitor(
         monitor_in: MonitorUpdate,
 ):
+    monitor_in.report_time = monitor_in.report_time * 1000
+    if monitor_in.start_time is not None:
+        monitor_in.start_time = monitor_in.start_time * 1000
+    if monitor_in.end_time is not None:
+        monitor_in.end_time = monitor_in.end_time * 1000
     await monitor_controller.update(id=monitor_in.id, obj_in=monitor_in.update_dict())
     return Success(msg="Update Successfully")
 
@@ -82,7 +98,7 @@ async def capture_list_monitorset(
     if fetch_interval:
         q &= Q(fetch_interval=fetch_interval)
     total, moniset_objs = await monitorset_controller.list(page=page, page_size=page_size, search=q,
-                                                     order=["sn", "id"])
+                                                           order=["sn", "id"])
     data = [await obj.to_dict() for obj in moniset_objs]
     return SuccessExtra(data=data, total=total, page=page, page_size=page_size)
 
@@ -118,3 +134,95 @@ async def capture_delete_monitorset(
 ):
     await monitorset_controller.remove(id=monitorset_id)
     return Success(msg="Deleted Success")
+
+
+@router.post("/capture/refresh", summary="刷新后台监控任务")
+async def capture_refresh_monitorset():
+    q = Q()
+    logger.info("Before capture_refresh_monitorset jobs status: ")
+    IntervalTaskScheduler.print_jobs()
+    monitor_sets = await monitorset_controller.model.filter(q).all()
+    for m_set in monitor_sets:
+        job = None
+        try:
+            job = IntervalTaskScheduler.get_job(str(m_set.id))
+        except Exception as e:
+            logger.info(f"Can not find job id of: {m_set.id},skip for cancel")
+            continue
+        if job:
+            # Remove the job from the scheduler
+            logger.info(f"Task ID: {m_set.id} is running, and do cancel for next check.")
+            IntervalTaskScheduler.remove_job(str(m_set.id))
+    # 重新加入定时任务
+    refresh_q = Q(enable="true")
+    monitor_sets = await monitorset_controller.model.filter(refresh_q).all()
+    for m_set in monitor_sets:
+        logger.info(f"定时任务已经刷新: {m_set}")
+        interval_int = int(m_set.fetch_interval)
+        IntervalTaskScheduler.add_job(fetch_monitor_data, IntervalTrigger(seconds=interval_int), id=str(m_set.id),
+                                      args=[m_set])
+    logger.info("After capture_refresh_monitorset jobs status: ")
+
+    IntervalTaskScheduler.print_jobs()
+
+    return Success(msg="OK")
+
+
+async def fetch_monitor_data(m_set: MonitorSet):
+    url = f"{m_set.api_url}?sn={m_set.sn}"
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) '
+                      'Chrome/124.0.0.0 Safari/537.36'
+    }
+    # Corrected the query parameter syntax
+    async with httpx.AsyncClient() as client:
+        response = await client.get(url, headers=headers)
+        if response.status_code != 200:
+            text = response.text
+            logger.error(f"Error fetching monitor data: {response.status_code}, {text}")
+            return None
+        logger.info(f"Job excute at: {datetime.now()}, url:{url}, response: {response.json()['data']}")
+
+        data = response.json()['data']
+        if isinstance(data, list):
+            for d in data:
+                sn = d.get('sn')
+                content = d.get('content')
+                report_time = d.get('reportTime')
+                start_time = d.get('startTime')
+                end_time = d.get('endTime')
+                monitor_his = await monitor_controller.model.filter(sn=sn, content=content,
+                                                                    report_time=report_time, start_time=start_time,
+                                                                    end_time=end_time).exists()
+
+                if not monitor_his:
+                    logger.info(f"发现新监控记录,保存更新中...{d}")
+
+                    await monitor_controller.create(MonitorCreate(
+                        sn=d['sn'],
+                        content=d['content'],
+                        report_time=d['reportTime'],
+                        start_time=d['startTime'],
+                        end_time=d['endTime']
+                    ))
+        elif isinstance(data, dict):
+            sn = data.get('sn')
+            content = data.get('content')
+            report_time = data.get('reportTime')
+            start_time = data.get('startTime')
+            end_time = data.get('endTime')
+            monitor_his = await monitor_controller.model.filter(sn=sn, content=content,
+                                                                report_time=report_time, start_time=start_time,
+                                                                end_time=end_time).exists()
+
+            if not monitor_his:
+                logger.info(f"发现新监控记录,保存更新中...{data}")
+
+                await monitor_controller.create(MonitorCreate(
+                    sn=data['sn'],
+                    content=data['content'],
+                    report_time=data['reportTime'],
+                    start_time=data['startTime'],
+                    end_time=data['endTime']
+                ))
+
