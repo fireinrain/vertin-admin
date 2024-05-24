@@ -1,4 +1,3 @@
-
 import httpx
 from apscheduler.triggers.interval import IntervalTrigger
 from fastapi import APIRouter, Query
@@ -48,7 +47,6 @@ async def get_monitor(
 async def create_monitor(
         monitor_in: MonitorCreate,
 ):
-
     await monitor_controller.create(obj_in=monitor_in)
     return Success(msg="Created Successfully")
 
@@ -215,3 +213,25 @@ async def fetch_monitor_data(m_set: MonitorSet):
                     end_time=data['endTime']
                 ))
 
+
+@router.get("/dash/list", summary="监控设备列表")
+async def dash_list_monitor(
+        page: int = Query(1, description="页码"),
+        page_size: int = Query(10, description="每页数量"),
+):
+    total = await monitorset_controller.model.all().distinct().values_list('sn', flat=False)
+    total = len(total)
+    moni_objs = await monitorset_controller.model.all().distinct().offset(
+        (page - 1) * page_size).limit(page_size).limit(page_size).order_by('id').values_list('sn', flat=False)
+    data = [{'sn': v[0], 'id': index} for index, v in enumerate(moni_objs)]
+    return SuccessExtra(data=data, total=total, page=page, page_size=page_size)
+
+
+@router.get("/dash/detail", summary="监控设备历史数据")
+async def dash_list_monitor(
+        sn: str = Query(..., description="SN编码"),
+):
+    datas = await monitor_controller.model.filter(sn=sn).order_by("report_time").all()
+    data = [await obj.to_dict() for obj in datas]
+
+    return Success(data=data)
