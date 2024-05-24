@@ -291,6 +291,9 @@ const columns = [
             placeholder="请选择是否开启"
           />
         </NFormItem>
+        <NFormItem label="保存提示:">
+          <span>修改数据采集数据需要再次点击刷新后台任务触发生效.</span>
+        </NFormItem>
       </NForm>
     </CrudModal>
   </CommonPage>
