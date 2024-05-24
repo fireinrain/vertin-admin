@@ -72,15 +72,15 @@ async def capture_list_monitorset(
         page_size: int = Query(10, description="每页数量"),
         sn: str = Query(None, description="SN号码"),
         api_url: str = Query(None, description="api地址"),
-        enable: bool = Query(None, description="是否开启"),
+        fetch_interval: int = Query(None, description="采集间隔"),
 ):
     q = Q()
     if sn:
         q &= Q(sn__contains=sn)
     if api_url:
         q &= Q(api_url__contains=api_url)
-    if enable is not None:
-        q &= Q(enable=enable)
+    if fetch_interval:
+        q &= Q(fetch_interval=fetch_interval)
     total, moniset_objs = await monitorset_controller.list(page=page, page_size=page_size, search=q,
                                                      order=["sn", "id"])
     data = [await obj.to_dict() for obj in moniset_objs]

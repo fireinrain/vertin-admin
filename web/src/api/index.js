@@ -41,4 +41,10 @@ export default {
   createMonitor: (data = {}) => request.post('/monitor/create', data),
   updateMonitor: (data = {}) => request.post('/monitor/update', data),
   deleteMonitor: (params = {}) => request.delete('/monitor/delete', { params }),
+  // monitor capture
+  getMonitorSets: (params = {}) => request.get('/monitor/capture/list', { params }),
+  createMonitorSet: (data = {}) => request.post('/monitor/capture/create', data),
+  updateMonitorSet: (data = {}) => request.post('/monitor/capture/update', data),
+  deleteMonitorSet: (params = {}) => request.delete('/monitor/capture/delete', { params }),
+  refreshMonitorSet: (data = {}) => request.post('/monitor/capture/refresh', data),
 }

@@ -92,7 +92,7 @@ async def init_fetch_monitor_data():
                 sn="JX000001",
                 api_url="https://app.autosort.cn/api/dpc/history/mg",
                 fetch_interval=30,
-                enable=True
+                enable="true"
             )
         )
         await monitorset_controller.create(
@@ -100,7 +100,7 @@ async def init_fetch_monitor_data():
                 sn="JX000001",
                 api_url="https://app.autosort.cn/api/dpc/realtime/mg",
                 fetch_interval=30,
-                enable=True
+                enable="true"
             )
         )
     logger.info(f"默认监控配置已存在,启动后台任务")

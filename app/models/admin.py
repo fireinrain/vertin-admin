@@ -96,7 +96,7 @@ class MonitorSet(BaseModel, TimestampMixin):
     sn = fields.CharField(max_length=100, description="SN编号")
     api_url = fields.CharField(max_length=1000, description="监控数据api")
     fetch_interval = fields.IntField(description="采集间隔")
-    enable = fields.BooleanField(description="是否开启")
+    enable = fields.CharField(max_length=10,description="是否开启")
 
     class Meta:
         table = "monitor_set"

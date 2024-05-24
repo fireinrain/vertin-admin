@@ -28,7 +28,7 @@ class BaseMonitorSet(BaseModel):
     sn: str = Field(..., description="SN编码", example="JX000001")
     api_url: str = Field("", description="监控数据地址", example="https://example.com")
     fetch_interval: int = Field(30, description="采集间隔")
-    enable: bool = Field(False, description="是否开启")
+    enable: str = Field("true", description="是否开启")
 
 
 class MonitorSetCreate(BaseMonitorSet):
