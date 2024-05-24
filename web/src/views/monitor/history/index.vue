@@ -123,6 +123,16 @@ const columns = [
     width: 'auto',
     align: 'center',
     ellipsis: { tooltip: true },
+    render(row) {
+      return new Date(row.report_time).toLocaleString('zh-CN', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+      })
+    },
   },
   {
     title: '起始时间',
@@ -130,6 +140,18 @@ const columns = [
     width: 'auto',
     align: 'center',
     ellipsis: { tooltip: true },
+    render(row) {
+      return row.start_time
+        ? new Date(row.start_time).toLocaleString('zh-CN', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+          })
+        : 'N/A'
+    },
   },
   {
     title: '结束时间',
@@ -137,6 +159,18 @@ const columns = [
     width: 'auto',
     align: 'center',
     ellipsis: { tooltip: true },
+    render(row) {
+      return row.end_time
+        ? new Date(row.end_time).toLocaleString('zh-CN', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+          })
+        : 'N/A'
+    },
   },
   {
     title: '操作',
