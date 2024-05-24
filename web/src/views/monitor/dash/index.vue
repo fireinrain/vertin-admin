@@ -18,7 +18,7 @@ const queryItems = ref({})
 const vPermission = resolveDirective('permission')
 
 const showModal = ref(false)
-const chartData = ref([])
+const chartData = ref({})
 const chartInstance = ref(null)
 const selectedRowId = ref(null)
 const message = useMessage()
@@ -75,10 +75,55 @@ const columns = [
   },
 ]
 
+const parseFeatData = (res) => {
+  let data = res.content
+  let valueList = this.parseIntStrToValue(data)
+  let analysisInTime = {
+    xFeatures: {},
+    yFeatures: {},
+    zFeatures: {},
+    temperature: undefined,
+    rpm: undefined,
+    reportTime: undefined,
+  }
+
+  analysisInTime.reportTime = res.reportTime //转换为ms
+  let items = ['xFeatures', 'yFeatures', 'zFeatures']
+  for (const [index, key] of items.entries()) {
+    analysisInTime[key]['velocity'] = valueList[index]
+    analysisInTime[key]['displacement'] = valueList[3 + index]
+    analysisInTime[key]['acceleration'] = valueList[6 + index]
+    analysisInTime[key]['velocityPeak'] = valueList[9 + index]
+    analysisInTime[key]['accelerationPeak'] = valueList[12 + index]
+    analysisInTime[key]['velocityKurtosis'] = valueList[15 + index]
+    analysisInTime[key]['accelerationKurtosis'] = valueList[18 + index]
+    analysisInTime[key]['velocitySpectrum'] = valueList.slice(21 + index * 8, 21 + index * 8 + 8)
+    analysisInTime[key]['accelerationSpectrum'] = valueList.slice(
+      45 + index * 8,
+      45 + index * 8 + 8
+    )
+  }
+  analysisInTime['zFeatures']['rotateVelocitySpectrum'] = valueList.slice(68, 76)
+  analysisInTime.temperature = valueList[77]
+  analysisInTime.rpm = valueList[78] * 6
+  return analysisInTime
+}
+
+const parseIntStrToValue = (str) => {
+  let valueList = []
+  for (let i = 0; i < str.length; i += 4) {
+    let valueStr = '0x' + str[i + 2] + str[i + 3] + str[i] + str[i + 1]
+    const value = parseInt(valueStr) / 10
+    valueList.push(value)
+  }
+  return valueList
+}
 const fetchChartData = async (sn) => {
   try {
     const response = await api.getMonitorHisDetail({ sn: sn })
-    chartData.value = response.data
+    chartData.value = response.data[0]
+    let featData = parseFeatData(response.data[0])
+    chartData.value = featData
     setTimeout(() => {
       if (chartInstance.value) {
         chartInstance.value.dispose()
