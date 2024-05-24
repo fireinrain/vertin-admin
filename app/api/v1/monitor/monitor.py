@@ -1,4 +1,3 @@
-from datetime import datetime
 
 import httpx
 from apscheduler.triggers.interval import IntervalTrigger
@@ -49,11 +48,6 @@ async def get_monitor(
 async def create_monitor(
         monitor_in: MonitorCreate,
 ):
-    monitor_in.report_time = monitor_in.report_time * 1000
-    if monitor_in.start_time is not None:
-        monitor_in.start_time = monitor_in.start_time * 1000
-    if monitor_in.end_time is not None:
-        monitor_in.end_time = monitor_in.end_time * 1000
 
     await monitor_controller.create(obj_in=monitor_in)
     return Success(msg="Created Successfully")
@@ -63,11 +57,6 @@ async def create_monitor(
 async def update_monitor(
         monitor_in: MonitorUpdate,
 ):
-    monitor_in.report_time = monitor_in.report_time * 1000
-    if monitor_in.start_time is not None:
-        monitor_in.start_time = monitor_in.start_time * 1000
-    if monitor_in.end_time is not None:
-        monitor_in.end_time = monitor_in.end_time * 1000
     await monitor_controller.update(id=monitor_in.id, obj_in=monitor_in.update_dict())
     return Success(msg="Update Successfully")
 
