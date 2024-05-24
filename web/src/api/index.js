@@ -47,4 +47,7 @@ export default {
   updateMonitorSet: (data = {}) => request.post('/monitor/capture/update', data),
   deleteMonitorSet: (params = {}) => request.delete('/monitor/capture/delete', { params }),
   refreshMonitorSet: (data = {}) => request.post('/monitor/capture/refresh', data),
+  //monitor dash
+  getMonitorSetsList: (params = {}) => request.get('/monitor/dash/list', { params }),
+  getMonitorHisDetail: (params = {}) => request.get('/monitor/dash/detail', { params }),
 }

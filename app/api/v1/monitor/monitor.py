@@ -228,7 +228,7 @@ async def dash_list_monitor(
 
 
 @router.get("/dash/detail", summary="监控设备历史数据")
-async def dash_list_monitor(
+async def dash_hist_monitor(
         sn: str = Query(..., description="SN编码"),
 ):
     datas = await monitor_controller.model.filter(sn=sn).order_by("report_time").all()
