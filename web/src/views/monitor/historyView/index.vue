@@ -138,6 +138,9 @@ const fetchChartData = async (sn) => {
     message.error('获取图表数据失败')
   }
 }
+const padZero = (num) => {
+  return num < 10 ? '0' + num : num
+}
 
 const initCharts = () => {
   const chartDom1 = document.getElementById('his_chart')
@@ -180,6 +183,10 @@ const initCharts = () => {
         'Y轴加速度峭值',
         'Z轴加速度峭值',
       ],
+      left: 'right',
+      top: 'middle',
+      orient: 'vertical',
+      align: 'left',
     },
     grid: {
       left: '3%',
@@ -193,9 +200,34 @@ const initCharts = () => {
       },
     },
     xAxis: {
-      type: 'time',
+      type: 'category',
       boundaryGap: false,
-      data: ['2024-05-24T12:34:56', '2025-05-24T12:34:56', '2028-05-24T12:34:56'],
+      data: reportTimeList.value,
+      axisLabel: {
+        formatter: function (value) {
+          // 将时间戳转换为日期对象
+          const dateObj = new Date(value)
+
+          // 格式化日期时间
+          const year = dateObj.getFullYear()
+          const month = dateObj.getMonth() + 1
+          const day = dateObj.getDate()
+          const hours = dateObj.getHours()
+          const minutes = dateObj.getMinutes()
+          const seconds = dateObj.getSeconds()
+
+          // 拼接格式化后的日期时间字符串
+          const formattedDate = `${year}-${padZero(month)}-${padZero(day)} ${padZero(
+            hours
+          )}:${padZero(minutes)}:${padZero(seconds)}`
+
+          return formattedDate
+        },
+      },
+      // 根据数据自动调整 X 轴分隔线
+      splitLine: {
+        show: true,
+      },
     },
     yAxis: {
       type: 'value',
@@ -376,7 +408,7 @@ const handleCloseModal = () => {
 
   <!-- 模态框 -->
   <NModal v-model:show="showModal" title="历史数据图表" size="large" @close="handleCloseModal">
-    <div id="his_chart" style="width: 90%; height: 700px; background: white"></div>
+    <div id="his_chart" style="width: 100%; height: 700px; background: white"></div>
   </NModal>
 </template>
 
