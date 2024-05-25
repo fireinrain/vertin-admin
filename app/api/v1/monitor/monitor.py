@@ -29,7 +29,7 @@ async def list_monitor(
     if end_time:
         q &= Q(end_time__lte=end_time)
     total, moni_objs = await monitor_controller.list(page=page, page_size=page_size, search=q,
-                                                     order=["report_time", "id"])
+                                                     order=["-report_time", "-id"])
     data = [await obj.to_dict() for obj in moni_objs]
     return SuccessExtra(data=data, total=total, page=page, page_size=page_size)
 
