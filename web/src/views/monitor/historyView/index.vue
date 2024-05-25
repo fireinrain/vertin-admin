@@ -144,9 +144,7 @@ const initCharts = () => {
   let chartSpeedEnergy = echarts.init(chartDom1)
   //遍历出数值
   const reportTimeList = computed(() => {
-    return motorAnalysisResult.value.map((row) =>
-      row.reportTime
-    )
+    return motorAnalysisResult.value.map((row) => row.reportTime)
   })
   console.log(reportTimeList.value)
   chartSpeedEnergy.setOption({
@@ -354,8 +352,7 @@ const parseIntStrToValue = (str) => {
   return valueList
 }
 
-const motorAnalysisResult = ref([
-])
+const motorAnalysisResult = ref([])
 
 const handleCloseModal = () => {
   showModal.value = false
