@@ -344,7 +344,6 @@ const handleCloseModal = () => {
             </NRow>
           </div>
 
-
           <div id="speed-data-container">
             <div class="data-category-label">速度数据:</div>
             <NRow>
@@ -553,13 +552,13 @@ const handleCloseModal = () => {
   padding: 0 5px;
   border-radius: 5px;
 }
-#speed-data-container{
+#speed-data-container {
   background-color: #3556ee;
   color: #5ff65f;
   padding: 0 5px;
   border-radius: 5px;
 }
-#motor-simple-intro{
+#motor-simple-intro {
   background-color: #6981f5;
   color: #5ff65f;
   padding: 0 5px;
@@ -573,7 +572,6 @@ const handleCloseModal = () => {
   column-gap: 10px;
   align-items: center;
 }
-
 
 .row-layout .row-label {
   width: 50px;

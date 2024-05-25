@@ -149,7 +149,83 @@ const initCharts = () => {
   const reportTimeList = computed(() => {
     return motorAnalysisResult.value.map((row) => row.reportTime)
   })
-  console.log(reportTimeList.value)
+  const rpmList = computed(() => {
+    return motorAnalysisResult.value.map((row) => row.rpm)
+  })
+  const temperatureList = computed(() => {
+    return motorAnalysisResult.value.map((row) => row.temperature)
+  })
+  // 速度数据
+  const xFeaturesVelocity = computed(() => {
+    return motorAnalysisResult.value.map((row) => row.xFeatures.velocity)
+  })
+  const yFeaturesVelocity = computed(() => {
+    return motorAnalysisResult.value.map((row) => row.yFeatures.velocity)
+  })
+  const zFeaturesVelocity = computed(() => {
+    return motorAnalysisResult.value.map((row) => row.zFeatures.velocity)
+  })
+  // 位移数据
+  const xFeaturesDisplacement = computed(() => {
+    return motorAnalysisResult.value.map((row) => row.xFeatures.displacement)
+  })
+  const yFeaturesDisplacement = computed(() => {
+    return motorAnalysisResult.value.map((row) => row.yFeatures.displacement)
+  })
+  const zFeaturesDisplacement = computed(() => {
+    return motorAnalysisResult.value.map((row) => row.zFeatures.displacement)
+  })
+  // 加速度数据
+  const xFeaturesAcceleration = computed(() => {
+    return motorAnalysisResult.value.map((row) => row.xFeatures.acceleration)
+  })
+  const yFeaturesAcceleration = computed(() => {
+    return motorAnalysisResult.value.map((row) => row.yFeatures.acceleration)
+  })
+  const zFeaturesAcceleration = computed(() => {
+    return motorAnalysisResult.value.map((row) => row.zFeatures.acceleration)
+  })
+  // 峰值数据
+  const xFeaturesVelocityPeak = computed(() => {
+    return motorAnalysisResult.value.map((row) => row.xFeatures.velocityPeak)
+  })
+  const yFeaturesVelocityPeak = computed(() => {
+    return motorAnalysisResult.value.map((row) => row.yFeatures.acceleration)
+  })
+  const zFeaturesVelocityPeak = computed(() => {
+    return motorAnalysisResult.value.map((row) => row.zFeatures.velocityPeak)
+  })
+  // 加速度峰值数据
+  const xFeaturesAccelerationPeak = computed(() => {
+    return motorAnalysisResult.value.map((row) => row.xFeatures.accelerationPeak)
+  })
+  const yFeaturesAccelerationPeak = computed(() => {
+    return motorAnalysisResult.value.map((row) => row.yFeatures.accelerationPeak)
+  })
+  const zFeaturesAccelerationPeak = computed(() => {
+    return motorAnalysisResult.value.map((row) => row.zFeatures.accelerationPeak)
+  })
+  // 速度峭度
+  const xFeaturesVelocityKurtosis = computed(() => {
+    return motorAnalysisResult.value.map((row) => row.xFeatures.velocityKurtosis)
+  })
+  const yFeaturesVelocityKurtosis = computed(() => {
+    return motorAnalysisResult.value.map((row) => row.yFeatures.velocityKurtosis)
+  })
+  const zFeaturesVelocityKurtosis = computed(() => {
+    return motorAnalysisResult.value.map((row) => row.zFeatures.velocityKurtosis)
+  })
+  // 加速度峭度
+  const xFeaturesAccelerationKurtosis = computed(() => {
+    return motorAnalysisResult.value.map((row) => row.xFeatures.accelerationKurtosis)
+  })
+  const yFeaturesAccelerationKurtosis = computed(() => {
+    return motorAnalysisResult.value.map((row) => row.yFeatures.accelerationKurtosis)
+  })
+  const zFeaturesAccelerationKurtosis = computed(() => {
+    return motorAnalysisResult.value.map((row) => row.zFeatures.accelerationKurtosis)
+  })
+  //console.log(xFeaturesVelocity.value)
   chartSpeedEnergy.setOption({
     title: {
       text: '监控历史图表',
@@ -237,139 +313,139 @@ const initCharts = () => {
         name: '温度',
         type: 'line',
         stack: 'Total',
-        data: [120, 132, 139, 140, 141, 230, 235],
+        data: temperatureList.value,
       },
       {
         name: '转速',
         type: 'line',
         stack: 'Total',
-        data: [120, 132, 139, 140, 141, 230, 235],
+        data: rpmList.value,
       },
       {
         name: 'X轴速度',
         type: 'line',
         stack: 'Total',
-        data: [120, 132, 139, 140, 141, 230, 235],
+        data: xFeaturesVelocity.value,
       },
       {
         name: 'Y轴速度',
         type: 'line',
         stack: 'Total',
-        data: [120, 132, 139, 140, 141, 230, 235],
+        data: yFeaturesVelocity.value,
       },
       {
         name: 'Z轴速度',
         type: 'line',
         stack: 'Total',
-        data: [120, 132, 139, 140, 141, 230, 235],
+        data: zFeaturesVelocity.value,
       },
       {
         name: 'X轴位移',
         type: 'line',
         stack: 'Total',
-        data: [120, 132, 139, 140, 141, 230, 235],
+        data: xFeaturesDisplacement.value,
       },
       {
         name: 'Y轴位移',
         type: 'line',
         stack: 'Total',
-        data: [120, 132, 139, 140, 141, 230, 235],
+        data: yFeaturesDisplacement.value,
       },
       {
         name: 'Z轴位移',
         type: 'line',
         stack: 'Total',
-        data: [120, 132, 139, 140, 141, 230, 235],
+        data: zFeaturesDisplacement.value,
       },
       {
         name: 'X轴加速度',
         type: 'line',
         stack: 'Total',
-        data: [111, 121, 143, 143, 143, 143, 143],
+        data: xFeaturesAcceleration.value,
       },
       {
         name: 'Y轴加速度',
         type: 'line',
         stack: 'Total',
-        data: [111, 121, 143, 143, 143, 143, 143],
+        data: yFeaturesAcceleration.value,
       },
       {
         name: 'Z轴加速度',
         type: 'line',
         stack: 'Total',
-        data: [111, 121, 143, 143, 143, 143, 143],
+        data: zFeaturesAcceleration.value,
       },
       {
         name: 'X轴速度峰值',
         type: 'line',
         stack: 'Total',
-        data: [111, 121, 143, 143, 143, 143, 143],
+        data: xFeaturesVelocityPeak.value,
       },
       {
         name: 'Y轴速度峰值',
         type: 'line',
         stack: 'Total',
-        data: [111, 121, 143, 143, 143, 143, 143],
+        data: yFeaturesVelocityPeak.value,
       },
       {
         name: 'Z轴速度峰值',
         type: 'line',
         stack: 'Total',
-        data: [111, 121, 143, 143, 143, 143, 143],
+        data: zFeaturesVelocityPeak.value,
       },
       {
         name: 'X轴加速度峰值',
         type: 'line',
         stack: 'Total',
-        data: [111, 121, 143, 143, 143, 143, 143],
+        data: xFeaturesAccelerationPeak.value,
       },
       {
         name: 'Y轴加速度峰值',
         type: 'line',
         stack: 'Total',
-        data: [111, 121, 143, 143, 143, 143, 143],
+        data: yFeaturesAccelerationPeak.value,
       },
       {
         name: 'Z轴加速度峰值',
         type: 'line',
         stack: 'Total',
-        data: [111, 121, 143, 143, 143, 143, 143],
+        data: zFeaturesAccelerationPeak.value,
       },
       {
         name: 'X轴速度峭值',
         type: 'line',
         stack: 'Total',
-        data: [111, 121, 143, 143, 143, 143, 143],
+        data: xFeaturesVelocityKurtosis.value,
       },
       {
         name: 'Y轴速度峭值',
         type: 'line',
         stack: 'Total',
-        data: [111, 121, 143, 143, 143, 143, 143],
+        data: yFeaturesVelocityKurtosis.value,
       },
       {
         name: 'Z轴速度峭值',
         type: 'line',
         stack: 'Total',
-        data: [111, 121, 143, 143, 143, 143, 143],
+        data: zFeaturesVelocityKurtosis.value,
       },
       {
         name: 'X轴加速度峭值',
         type: 'line',
         stack: 'Total',
-        data: [111, 121, 143, 143, 143, 143, 143],
+        data: xFeaturesAccelerationKurtosis.value,
       },
       {
         name: 'Y轴加速度峭值',
         type: 'line',
         stack: 'Total',
-        data: [111, 121, 143, 143, 143, 143, 143],
+        data: yFeaturesAccelerationKurtosis.value,
       },
       {
         name: 'Z轴加速度峭值',
         type: 'line',
         stack: 'Total',
-        data: [111, 121, 143, 143, 143, 143, 143],
+        data: zFeaturesAccelerationKurtosis.value,
       },
     ],
   })
