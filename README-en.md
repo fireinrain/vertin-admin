@@ -18,7 +18,7 @@ vertin-admin is a modern front-end and back-end separation development platform 
 - **Granular Permission Control**: Implements detailed permission management including button and interface level controls, ensuring different roles and users have appropriate permissions.
 
 ### Live Demo
-- URL: http://139.9.100.77:9999
+- URL: http://139.9.100.77:8888
 - Username: admin
 - Password: 123456
 
@@ -49,7 +49,7 @@ Please follow the instructions below for installation and configuration:
 
 ```sh
 docker pull fireinrain/vertin-admin:latest 
-docker run -d --restart=always --name=vertin-admin -p 9999:80 fireinrain/vertin-admin
+docker run -d --restart=always --name=vertin-admin -p 8888:80 fireinrain/vertin-admin
 ```
 
 #### Method 2: Build Image Using Dockerfile
@@ -71,12 +71,12 @@ docker build --no-cache . -t vertin-admin
 ##### Start the Container
 
 ```sh
-docker run -d --restart=always --name=vertin-admin -p 9999:80 vertin-admin
+docker run -d --restart=always --name=vertin-admin -p 8888:80 vertin-admin
 ```
 
 ##### Access the Service
 
-http://localhost:9999
+http://localhost:8888
 
 username：admin
 
@@ -100,7 +100,7 @@ poetry install
 ```sh
 make run
 ```
-The backend service is now running, and you can visit http://localhost:9999/docs to view the API documentation.
+The backend service is now running, and you can visit http://localhost:8888/docs to view the API documentation.
 
 #### Frontend
 The frontend project requires a Node.js environment (recommended version 18.8.0 or higher).

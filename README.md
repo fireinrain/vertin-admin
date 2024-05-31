@@ -18,7 +18,7 @@
 - **细粒度权限控制**：实现按钮和接口级别的权限控制，确保不同用户或角色在界面操作和接口访问时具有不同的权限限制。
 
 ### 在线预览
-- http://139.9.100.77:9999
+- http://139.9.100.77:8888
 - username: admin
 - password: 123456
 
@@ -49,7 +49,7 @@
 
 ```sh
 docker pull fireinrain/vertin-admin:latest 
-docker run -d --restart=always --name=vertin-admin -p 9999:80 fireinrain/vertin-admin
+docker run -d --restart=always --name=vertin-admin -p 8888:80 fireinrain/vertin-admin
 ```
 
 #### 方法二：dockerfile构建镜像
@@ -71,12 +71,12 @@ docker build --no-cache . -t vertin-admin
 ##### 启动容器
 
 ```sh
-docker run -d --restart=always --name=vertin-admin -p 9999:80 vertin-admin
+docker run -d --restart=always --name=vertin-admin -p 8888:80 vertin-admin
 ```
 
 ##### 访问
 
-http://localhost:9999
+http://localhost:8888
 
 username：admin
 
@@ -100,7 +100,7 @@ poetry install
 ```sh
 make run
 ```
-服务现在应该正在运行，访问 http://localhost:9999/docs 查看API文档
+服务现在应该正在运行，访问 http://localhost:8888/docs 查看API文档
 
 #### 前端
 启动项目需要以下环境：
